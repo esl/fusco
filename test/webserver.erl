@@ -87,7 +87,8 @@ server_loop(Module, Socket, Request, Headers, [H | T] = Responders) ->
     end.
 
 listen(ssl, Addr, Family) ->
-    Root = code:lib_dir(fusco, test),
+    KeyFile = code:where_is_file("key.pem"),
+    CertFile = code:where_is_file("crt.pem"),
     Opts = [
         Family,
         {packet, http},
@@ -95,8 +96,8 @@ listen(ssl, Addr, Family) ->
         {active, false},
         {ip, Addr},
         {verify,0},
-        {keyfile, filename:join(Root, "key.pem")},
-        {certfile, filename:join(Root,"crt.pem")}
+        {keyfile, KeyFile},
+        {certfile, CertFile}
     ],
     {ok, LS} = ssl:listen(0, Opts),
     LS;
