@@ -74,7 +74,7 @@ parse_url(URL) ->
 %%------------------------------------------------------------------------------
 %% @spec (Path, Method, Headers, Host, Body, Cookies) ->
 %%    Request
-%% Path = iolist()
+%% Path = path()
 %% Method = atom() | string()
 %% Headers = [{atom() | string(), string()}]
 %% Host = string()
@@ -83,7 +83,7 @@ parse_url(URL) ->
 %% @doc
 %% @end
 %%------------------------------------------------------------------------------
--spec format_request(iolist(), method(), headers(), string(),  iolist(),
+-spec format_request(path(), method(), headers(), string(),  iolist(),
                      {boolean(), [fusco_cookie()]}) -> {iodata(), iodata()}.
 format_request(Path, Method, Hdrs, Host, Body, Cookies) ->
     {AllHdrs, ConHdr} =
@@ -339,7 +339,7 @@ split_port(Scheme, [P | T], Port) ->
 %% @doc
 %% @end
 %%------------------------------------------------------------------------------
--spec add_mandatory_hdrs(string(), headers(), host(),
+-spec add_mandatory_hdrs(path(), headers(), host(),
                          iolist(), {boolean(), [fusco_cookie()]}) ->
     {iodata(), iodata()}.
 add_mandatory_hdrs(_Path, Hdrs, Host, Body, {_, []}) ->

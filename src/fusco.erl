@@ -103,7 +103,7 @@ disconnect(Client) ->
 %% @doc Makes a request using a client already connected.
 %% @end
 %%------------------------------------------------------------------------------
--spec request(pid(), iodata(), method(), headers(), iodata(), pos_timeout()) ->
+-spec request(pid(), path(), method(), headers(), iodata(), pos_timeout()) ->
     result().
 request(Client, Path, Method, Hdrs, Body, Timeout) ->
     request(Client, Path, Method, Hdrs, Body, 1, Timeout).
@@ -135,7 +135,7 @@ request(Client, Path, Method, Hdrs, Body, Timeout) ->
 %% `Host' = `"example.com"'<br/>
 %% `Port' = `80'<br/>
 %% `Ssl' = `false'<br/>
-%% `Path' = `"/foobar"'<br/>
+%% `Path' = `<<"/foobar">>'<br/>
 %% `Path' must begin with a forward slash `/'.
 %%
 %% `Method' is either a string, stating the HTTP method exactly as in the
@@ -191,7 +191,7 @@ request(Client, Path, Method, Hdrs, Body, Timeout) ->
 %% list of all available options, please check OTP's ssl module manpage.
 %% @end
 %%------------------------------------------------------------------------------
--spec request(pid(), iodata(), method(), headers(), iodata(), integer(),
+-spec request(pid(), path(), method(), headers(), iodata(), integer(),
               pos_timeout()) -> result().
 request(Client, Path, Method, Hdrs, Body, SendRetry,
         Timeout) when is_binary(Path) ->

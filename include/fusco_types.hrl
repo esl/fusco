@@ -24,6 +24,8 @@
 %%% ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 %%% ----------------------------------------------------------------------------
 
+-type path() :: binary().
+
 -type header() :: binary().
 
 -type headers() :: [{header(), iodata()}].
