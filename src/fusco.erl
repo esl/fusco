@@ -222,11 +222,11 @@ init({Destination, Options}) ->
     Proxy = case ProxyInfo of
         false ->
             undefined;
-        {proxy, ProxyUrl} when is_list(ProxyUrl), not Ssl ->
+        ProxyUrl when is_list(ProxyUrl), not Ssl ->
             %% The point of HTTP CONNECT proxying is to use TLS tunneled in
             %% a plain HTTP/1.1 connection to the proxy (RFC2817).
             throw(origin_server_not_https);
-        {proxy, ProxyUrl} when is_list(ProxyUrl) ->
+        ProxyUrl when is_list(ProxyUrl) ->
             fusco_lib:parse_url(ProxyUrl)
     end,
     State = #client_state{host = Host, port = Port, ssl = Ssl,
