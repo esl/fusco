@@ -55,7 +55,7 @@ ResponseBody = binary() | pid() | undefined
 Reason = connection_closed | connect_timeout | timeout
 ``` 
 
-Possible `Options` for `request` function:
+Possible `Options` for `start` function:
 
 `{connect_timeout, Milliseconds}` specifies how many milliseconds the
 client can spend trying to establish a connection to the server. This
