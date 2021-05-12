@@ -602,9 +602,9 @@ connect(Host, Port, SocketOptions, Timeout, Ssl) ->
     catch
         exit:{{{badmatch, {error, {asn1, _}}}, _}, _} ->
             {error, ssl_decode_error};
-        Type:Error ->
+        Type:Error:Stacktrace ->
             error_logger:error_msg("Socket connection error: ~p ~p, ~p",
-                                   [Type, Error, erlang:get_stacktrace()]),
+                                   [Type, Error, Stacktrace]),
             {error, connection_error}
     end.
 
