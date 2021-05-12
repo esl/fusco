@@ -136,12 +136,9 @@ replace_or_add_cookie(_, NewCookie, List) ->
 %% @doc Converts characters in a string ro lower case.
 %% @end
 %%------------------------------------------------------------------------------
--spec to_lower(string()) -> string().
-to_lower(String) when is_list(String) ->
-    [char_to_lower(X) || X <- String].
-
-bin_to_lower(Bin) ->
-    << <<(char_to_lower(B))>> || <<B>> <= Bin >>.
+-spec to_lower(unicode:chardata()) -> unicode:chardata().
+to_lower(String) ->
+    string:lowercase(String).
 
 %%------------------------------------------------------------------------------
 %% @doc Compares header values to pre-defined values
@@ -400,7 +397,7 @@ add_headers([{H, V} | T], undefined, undefined, Connection, Acc)
     add_headers(T, undefined, undefined, Connection,
         [[H, <<": ">>, V, ?HTTP_LINE_END] | Acc]);
 add_headers([{H, V} | T], Body, Host, Connection, Acc) ->
-    case bin_to_lower(H) of
+    case to_lower(H) of
         <<"connection">> ->
             add_headers(T, Body, Host, V,
                 [[H, <<": ">>, V, ?HTTP_LINE_END] | Acc]);
@@ -459,39 +456,6 @@ maybe_ipv6_enclose(Host) ->
             Host
     end.
 
-%%------------------------------------------------------------------------------
-%% @private
-%% @doc
-%% @end
-%%------------------------------------------------------------------------------
-char_to_lower($A) -> $a;
-char_to_lower($B) -> $b;
-char_to_lower($C) -> $c;
-char_to_lower($D) -> $d;
-char_to_lower($E) -> $e;
-char_to_lower($F) -> $f;
-char_to_lower($G) -> $g;
-char_to_lower($H) -> $h;
-char_to_lower($I) -> $i;
-char_to_lower($J) -> $j;
-char_to_lower($K) -> $k;
-char_to_lower($L) -> $l;
-char_to_lower($M) -> $m;
-char_to_lower($N) -> $n;
-char_to_lower($O) -> $o;
-char_to_lower($P) -> $p;
-char_to_lower($Q) -> $q;
-char_to_lower($R) -> $r;
-char_to_lower($S) -> $s;
-char_to_lower($T) -> $t;
-char_to_lower($U) -> $u;
-char_to_lower($V) -> $v;
-char_to_lower($W) -> $w;
-char_to_lower($X) -> $x;
-char_to_lower($Y) -> $y;
-char_to_lower($Z) -> $z;
-char_to_lower(Ch) -> Ch.
-
 is_prefix([<<>>], _) ->
     true;
 is_prefix([H | T1], [H | T2]) ->
@@ -502,4 +466,3 @@ is_prefix(_, []) ->
     false;
 is_prefix(_, _) ->
     false.
-
