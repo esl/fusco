@@ -4,7 +4,7 @@
 %%%=============================================================================
 {application, fusco,
  [{description, "Fast and Ultra Slim Connection Oriented HTTP Client"},
-  {vsn, "0.1.0"},
+  {vsn, "0.1.1"},
   {modules, []},
   {registered, []},
   {applications, [kernel, stdlib, ssl]},

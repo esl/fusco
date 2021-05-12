@@ -121,8 +121,8 @@ get_addr(Host, Family) ->
 accept(ssl, ListenSocket) ->
     case ssl:transport_accept(ListenSocket, 1000000) of
         {ok, Socket} ->
-            ok = ssl:ssl_accept(Socket),
-            Socket;
+            {ok, SslSocket} = ssl:handshake(Socket),
+            SslSocket;
         {error, _} ->
             error
     end;
