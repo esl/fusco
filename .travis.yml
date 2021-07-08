@@ -1,0 +1,8 @@
+language: erlang
+branches:
+    only:
+        - master
+otp_release:
+    - R16B03
+script:
+    - make test
